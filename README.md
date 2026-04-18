@@ -1,29 +1,125 @@
-# Experiments - 19 & 20
-# COVID-19 Data Analysis Project
+# COVID-19 Data Analysis — Experiments 19 & 20
 
-## Introduction
-This repository contains a Python-based analysis of the COVID-19 pandemic. The project focuses on data cleaning, exploratory data analysis (EDA), and the visualization of global infection trends using a dataset spanning from January 2020 to May 2021.
+---
+
+## Project Overview
+
+This project performs an Exploratory Data Analysis (EDA) on the COVID-19 global dataset. The analysis covers confirmed cases, deaths, recoveries, and active cases across countries and Indian states — based on data up to **May 29, 2021**.
+
+---
 
 ## Dataset
-The analysis is based on the covid_19_data.csv dataset, which includes:
-- Date-wise observations of confirmed, death, and recovered cases.
-- Geographic breakdown by Country/Region and Province/State.
-- Cumulative totals for global and regional monitoring.
+
+| Property | Details |
+|---|---|
+| **File** | `covid_19_data.csv` |
+| **Source** | Johns Hopkins University / Kaggle COVID-19 Dataset |
+| **Records** | 306,429 rows |
+| **Latest Date** | May 29, 2021 |
+| **Countries Covered** | 195 unique countries/regions |
+
+### Columns Used
+
+| Column | Description |
+|---|---|
+| `ObservationDate` | Date of the observation |
+| `Province/State` | Province or state |
+| `Country/Region` | Country or region name |
+| `Confirmed` | Cumulative confirmed cases |
+| `Deaths` | Cumulative death count |
+| `Recovered` | Cumulative recovered cases |
+| `Active` | Derived: Confirmed − Recovered − Deaths |
+
+> **Note:** `SNo` and `Last Update` columns were dropped as they are not needed for analysis.
+
+---
 
 ## Tech Stack
-- Language: Python
-- Environment: Google Colab / Jupyter Notebook
-- Libraries: Pandas, Matplotlib, Seaborn, NumPy
 
-## Analysis Workflow
-1. Data Preprocessing: Cleaning null values in regional columns and formatting date-time objects.
-2. Global Trend Analysis: Visualizing the cumulative growth of confirmed cases worldwide.
-3. Regional Comparisons: Identifying the most impacted countries and comparing mortality vs. recovery rates.
-4. Active Case Tracking: Derived metrics to monitor the progression of active infections.
+- **Platform:** Google Colab
+- **Language:** Python 3
+- **Libraries:**
+  - `pandas` — Data loading, cleaning, and manipulation
+  - `numpy` — Numerical operations
+  - `plotly.express` — Interactive world map visualization
 
-## Data Limitations
-- Reporting Standards: Variation in how different countries define and report "Recovered" cases can impact comparative accuracy.
-- Time Horizon: The analysis is bounded by the dataset end-date of May 2021 and does not reflect subsequent pandemic waves or vaccination impacts.
+---
 
-## Conclusion
-This research demonstrates the power of data visualization in understanding the scale and spread of a global health crisis. By aggregating daily observations, the project highlights the distinct waves of infection and the varying success rates of recovery efforts across different nations. The findings suggest that geographic and temporal factors played a critical role in the pandemic's trajectory, providing a clear historical record of the first 18 months of the COVID-19 outbreak.
+## Analysis Performed
+
+### 1. Data Loading & Preprocessing
+- Loaded the dataset using `pandas`
+- Dropped irrelevant columns (`SNo`, `Last Update`)
+- Converted `ObservationDate` to `datetime64`, and `Confirmed`, `Deaths`, `Recovered` to `int64`
+
+### 2. Active Cases Feature Engineering
+- Created a new derived column: `Active = Confirmed - Recovered - Deaths`
+
+### 3. Latest Date Extraction
+- Identified the most recent date in the dataset: **May 29, 2021**
+- Filtered data to only the latest date for country-level analysis
+
+### 4. Country-wise Analysis
+- Counted unique countries/regions in the latest data
+- Grouped by `Country/Region` to get total Confirmed, Deaths, Recovered, and Active cases
+- Looked up specific countries: **India**, **Mainland China**, **US**
+- Found the **Top 5 countries** by confirmed cases
+
+### 5. World Map Visualization
+- Plotted a choropleth world map using `plotly.express` with confirmed cases per country
+- Color scale: `pinkyl`, range: 0 to 10,000,000
+
+### 6. India-specific Analysis
+- Filtered dataset for India only
+- Handled missing `Province/State` values by filling with `"Unknown"`
+- Extracted India's latest date data
+- Grouped by state to find top states by confirmed cases
+- Found the **state with the maximum confirmed cases**
+
+---
+
+## Key Findings
+
+### Country-wise Cases (as of May 29, 2021)
+
+| Country | Confirmed | Deaths | Recovered | Active |
+|---|---|---|---|---|
+| India | 27,894,800 | 325,972 | 25,454,320 | 2,114,508 |
+| Mainland China | 91,072 | 4,636 | 86,117 | 319 |
+| US | 33,251,939 | 594,306 | 0 | 32,657,633 |
+
+### Top 5 Countries by Confirmed Cases
+
+| Rank | Country | Confirmed | Recovered |
+|---|---|---|---|
+| 1 | US | 33,251,939 | 0 |
+| 2 | India | 27,894,800 | 25,454,320 |
+| 3 | Brazil | 16,471,600 | 14,496,224 |
+| 4 | France | 5,719,877 | 390,878 |
+| 5 | Turkey | 5,235,978 | 5,094,279 |
+
+### 🇮🇳 Top 5 Indian States by Confirmed Cases
+
+| Rank | State | Confirmed | Recovered |
+|---|---|---|---|
+| 1 | **Maharashtra** | 5,713,215 | 5,339,838 |
+| 2 | Karnataka | 2,567,449 | 2,189,064 |
+| 3 | Kerala | 2,494,385 | 2,252,505 |
+| 4 | Tamil Nadu | 2,039,716 | 1,706,298 |
+| 5 | Uttar Pradesh | 1,688,152 | 1,621,743 |
+
+> **Maharashtra** had the highest number of confirmed cases among all Indian states with **5,713,215** cases.
+
+---
+
+## 📁 Project Structure
+
+```
+covid19-eda/
+│
+├── covid_19_data.csv            # Raw dataset
+├── experiments19_20.ipynb       # Main Colab Notebook
+└── README.md                    # Project documentation (this file)
+```
+
+---
