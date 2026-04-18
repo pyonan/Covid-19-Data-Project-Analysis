@@ -123,3 +123,15 @@ covid19-eda/
 ```
 
 ---
+
+## Conclusion
+
+This analysis of the COVID-19 dataset reveals the scale and geographic spread of the pandemic up to May 29, 2021. By preprocessing the data and engineering an Active Cases column, we were able to get a clearer picture of the real-time burden on each country beyond just raw confirmed counts.
+
+The **United States** led globally with over **33.2 million confirmed cases**, followed by **India** at **27.9 million** and **Brazil** at **16.4 million**, highlighting that the pandemic was heavily concentrated in a handful of large nations. The choropleth world map visualization made this disparity immediately visible across all 195 countries.
+
+Within India, the state-level analysis showed that **Maharashtra** was the worst-affected state with over **5.7 million confirmed cases** — significantly higher than any other state — pointing to the need for localized response strategies rather than a one-size-fits-all national approach.
+
+Overall, this project demonstrates how basic data wrangling and visualization techniques can surface meaningful public health insights from large real-world datasets.
+
+---
